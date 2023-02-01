@@ -2,6 +2,19 @@
 <!--
 <link type="text/css" rel="stylesheet" href="/css/base.css"></link>
 -->
+<!--
+<style>
+    .orange {
+        color: orange;
+        font: bold;
+    }
+    .red {
+        color: red;
+    }
+</style>
+-->
+- [1.JS垃圾回收机制](#1js垃圾回收机制)
+- [2. 闭包的是什么](#2-闭包的是什么)
 
 ## 1.JS垃圾回收机制
 
@@ -15,15 +28,5 @@
 
 优化手段：内存优化 ; 手动释放：取消内存的占用即可。<font class=orange>fn = null</font>
 
-<!--
-<style>
-    .orange {
-        color: orange;
-        font: bold;
-    }
-    .red {
-        color: red;
-    }
-</style>
--->
 
+## 2. 闭包的是什么
