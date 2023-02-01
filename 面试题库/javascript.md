@@ -1,8 +1,7 @@
-@import "base.less"
-
+@import "/css/base.less"
+<!--
 <link type="text/css" rel="stylesheet" href="/css/base.css"></link>
-
-[TOC]
+-->
 
 ## 1.JS垃圾回收机制
 
@@ -16,7 +15,7 @@
 
 优化手段：内存优化 ; 手动释放：取消内存的占用即可。<font class=orange>fn = null</font>
 
-
+<!--
 <style>
     .orange {
         color: orange;
@@ -26,4 +25,5 @@
         color: red;
     }
 </style>
+-->
 
