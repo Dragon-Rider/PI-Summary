@@ -54,4 +54,5 @@
 - 基本类型：string，number，bigint，boolean，null，undefined，symbol。在栈内存中，存的值。
 
 - 引用类型：Object，包括：Array - 数组对象、Function - 函数对象 等、RegExp - 正则对象、Date - 日期对象、Math - 数学函数；在内存中，存的引用地址。
+
 ![alt 数据类型](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/JavaScript%20%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B.jpg "数据类型1")
