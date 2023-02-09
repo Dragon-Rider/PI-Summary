@@ -440,6 +440,11 @@ JSON.parse(JSON.stringify 的问题：
   - 宏任务 macro task: script代码, setTimeout, setInterval
   - 微任务 micro task: Promise.then, process.nextTick
   - EventLoop：本质上是js对异步处理机制。先执行同步，再执行微任务，最后执行宏任务。有上述过程不断重复，一旦发现优先级比自己高的, 要去执行高的, 让出主线程, 等前一个优先级任务空了, 再执行后面的。叫作 事件循环机制。
+![alt Event Loop](https://raw.githubusercontent.com/Dragon-Rider/PI-Summary/master/img/event-loop.png?token=GHSAT0AAAAAAB6GR7QZ7G4YFTP37UXB6ULAY7E2NXA "Event Loop")
+
+https://github.com/Dragon-Rider/PI-Summary/blob/master/img/event-loop.png
+https://github.com/Dragon-Rider/PI-Summary/raw/master/imgs/event-loop.png
+
 
 ```
 // EventLoop 测试题1
