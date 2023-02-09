@@ -516,11 +516,11 @@ async1 end
 当你声明一个变量的时候，就会给该变量分配一个内存空间(变量对象，使用完毕后, 释放。**自动垃圾收集机制: 就是找出那些不再继续使用的值，然后释放其占用的内存**
 
 ## 19. 执行上下文 Execution Context 的理解
-1. 执行上下文：每次当解释器转到不同的可执行代码的时候，就会进入一个执行上下文 EC。可以简单的理解执行上下文就是代码的运行环境或者作用域。EC 是个抽象的概念，ECMA-262 使用 EC 和 Executable Code 区分。（参考）
+1. 执行上下文：每次当解释器转到不同的可执行代码的时候，就会进入一个执行上下文 EC。可以简单的理解执行上下文就是代码的运行环境或者作用域。EC 是个抽象的概念，ECMA-262 使用 EC 和 Executable Code 区分。[link](https://zhuanlan.zhihu.com/p/43462607)
 
 2. 运行环境: 全局环境, 函数环境
 
-3. 执行调用栈：执行是以 栈的方式处理，叫 函数调用栈 (call stack)（参考）
+3. 执行调用栈：**执行是以 栈的方式处理，叫 函数调用栈 (call stack)**[参考](https://zhuanlan.zhihu.com/p/139993414)
 
 4. 全局环境一直在执行上下文栈低。当函数执行的时候，才入栈。return 函数上下文必须立刻出栈。
 ```
@@ -568,6 +568,7 @@ console.log(_name); // Perter=
 
 - **变量声明**: 只是定义了, 执行还是按照顺序，没执行到哪儿的, 会返回undefined. 我的理解：声明提到顶部，定义还在原来的位置。注意：var 可以提升，但是 let 无法提升。
 ```
+// 解释代码块
 const _fn = (args) => {
   console.log(args) // Formal parameters 形参
 
@@ -599,4 +600,39 @@ _fn('1');
  * a_string
  * [Function: b]
  */
+```
+
+```
+// 题目1：
+var a = 1;
+f();
+function f() {
+	console.log(a);
+  if (false) {
+    var a = 2;
+  }
+}
+// 输出：undefined
+// 原因，上面的代码在做完 两 次生命提升后如下：
+var a;
+function() {
+  var a;
+	console.log(a);
+  if (false) {
+    a = 2;
+  }
+}
+a = 1;
+f();
+
+// 题目2
+var a = 1;
+f();
+function f() {
+	console.log(a);
+	let a = 2;
+}
+
+// 输出：Uncaught ReferenceError: Cannot access 'a' before initialization
+// 原因：let 无法做声明提升，同时会生成 TDZ。只有在块级作用域里有 let 会形成 TDZ，限制声明提升，同时不准提前使用变量。
 ```
