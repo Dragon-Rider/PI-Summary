@@ -16,6 +16,7 @@
 - [14. Array.prototype.reduce() 的考察](#14-arrayprototypereduce-的考察)
 - [15. JS 对象转换的考察](#15-js-对象转换的考察)
 - [16. 对象深拷贝方法](#16-对象深拷贝方法)
+- [17. 执行机制, 同步异步, Event Loop, 宏任务, 微任务](#17-执行机制-同步异步-event-loop-宏任务-微任务)
 
 @import "/css/base.less"
 <!--
@@ -418,3 +419,60 @@ JSON.parse(JSON.stringify 的问题：
 
 - 如果对象中存在循环引⽤的情况也⽆法正确实现深拷贝。
 [参考](https://wenku.baidu.com/view/704ab840aa8271fe910ef12d2af90242a895ab39.html?_wkts_=1675936522410)
+
+## 17. 执行机制, 同步异步, Event Loop, 宏任务, 微任务
+- js是单线程, 也就是说只有一个 主线程执行，同步代码可以阻塞异步队列的直行。待同步代码直行完毕后再执行异步代码。
+  - JS为什么单线程?
+    js是浏览器端的,主要是操作DOM使用。
+
+    浏览器操作，如果不是单线程，DOM操作会乱掉，有很多个人操作，同时删除修改新增什么的，都不明确。
+
+    不如一个人指挥操作。
+
+    创建多线程环境: 主线程做自己的事儿DOM，子线程不得处理UI, 做其他的事儿，结果交给主线程。 现在像web worker 是有主线程和 创建子线程的。
+
+    - Web worker: 目标是减轻进程工作任务密集。
+
+    - Service worker: 浏览器和网络间的代理 离线目标。
+
+    - Worklet: 浏览器渲染 HOOK
+- 优先级: 同步任务 > Micro Event Queue 异步微任务队列 > Macro Event Queue 异步宏任务队列
+  - 宏任务 macro task: script代码, setTimeout, setInterval
+  - 微任务 micro task: Promise.then, process.nextTick
+  - EventLoop：本质上是js对异步处理机制。先执行同步，再执行微任务，最后执行宏任务。有上述过程不断重复，一旦发现优先级比自己高的, 要去执行高的, 让出主线程, 等前一个优先级任务空了, 再执行后面的。叫作 事件循环机制。
+
+```
+// EventLoop 测试题1
+setTimeout(function(){
+    console.log('定时器开始啦')
+},0);
+
+new Promise(function(resolve){
+    console.log('马上执行for循环啦');
+    for(var i = 0; i < 10000; i++){
+        i == 99 && resolve();
+    }
+}).then(function(){
+    console.log('执行then函数啦')
+});
+
+console.log('代码执行结束');
+
+async function async1() {
+  await async2() // [这个注释不能给候选人]await = 立即执行，后面的code, 相当于放到promise.then(...)
+  console.log('async1 end')
+}
+async function async2() {
+  console.log('async2 end')
+}
+async1();
+
+/*
+马上执行for循环啦
+代码执行结束
+async2 end
+执行then函数啦
+async1 end
+定时器开始啦
+*/
+```
