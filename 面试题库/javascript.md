@@ -170,7 +170,7 @@ foo.get_secret (); // 得到 'a new secret'
 
 - 引用类型：Object，包括：Array - 数组对象、Function - 函数对象 等、RegExp - 正则对象、Date - 日期对象、Math - 数学函数；在内存中，存的引用地址。
 
-![alt 数据类型](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/JavaScript%20%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B.jpg "数据类型1")
+![alt 数据类型](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/js_data_structure1.jpg "数据类型1")
 
 ## 4. Javascript 中 null、NaN 和 undefined 的区别？
 - 未定义的值和定义未赋值的为 undefined，null是一种特殊的 object, NaN是一种特殊的 number。
@@ -441,7 +441,7 @@ JSON.parse(JSON.stringify 的问题：
   - 宏任务 macro task: script代码, setTimeout, setInterval
   - 微任务 micro task: Promise.then, process.nextTick
   - EventLoop：本质上是js对异步处理机制。先执行同步，再执行微任务，最后执行宏任务。有上述过程不断重复，一旦发现优先级比自己高的, 要去执行高的, 让出主线程, 等前一个优先级任务空了, 再执行后面的。叫作 事件循环机制。
-![alt Event Loop](https://github.com/Dragon-Rider/PI-Summary/raw/master/imgs/event-loop.png "Event Loop")
+![alt Event Loop](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/event-loop.png "Event Loop")
 
 ```
 // EventLoop 测试题1
@@ -502,7 +502,7 @@ async1 end
 
    - 引用类型: Object, Array....
 
-![JS Data Structure](https://github.com/Dragon-Rider/PI-Summary/raw/master/imgs/js_data_structure.png "JS Data Structure")
+![JS Data Structure](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/js_data_structure2.png "JS Data Structure")
 
 4. 不同类型存储的环境
    - 基本类型 保存在 栈 stack 内存中
