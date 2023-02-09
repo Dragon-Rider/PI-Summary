@@ -18,8 +18,6 @@
 - [16. 对象深拷贝方法](#16-对象深拷贝方法)
 - [17. 执行机制, 同步异步, Event Loop, 宏任务, 微任务](#17-执行机制-同步异步-event-loop-宏任务-微任务)
 - [18. JS 内存空间理解](#18-js-内存空间理解)
-  - [18.1 heap, stack, queue](#181-heap-stack-queue)
-  - [18.2 基础类型 和 引用类型](#182-基础类型-和-引用类型)
 
 @import "/css/base.less"
 <!--
@@ -484,24 +482,33 @@ async1 end
 ## 18. JS 内存空间理解
 1. 变量对象 和 堆内存
 
-- 基本类型 保存在 栈stack内存中
+   - 基本类型 保存在 栈stack内存中
 
-- 引用类型值 保存在 堆heap内存中
+   - 引用类型值 保存在 堆heap内存中
 
-- 事件循环机制 是在队列queue中
+   - 事件循环机制 是在队列queue中
 
-- 闭包引用会 保存在 堆heap内存中
+   - 闭包引用会 保存在 堆heap内存中
 
-### 18.1 heap, stack, queue
-- 堆 heap: 类似kv, 我们知道key, 就能获取到value。
+2. heap, stack, queue
+   - 堆 heap: 类似kv, 我们知道key, 就能获取到value。
 
-- 栈 stack: 栈空间先进后出，后进先出的特点。
+   - 栈 stack: 栈空间先进后出，后进先出的特点。
 
-- 队列 queue: 先进先出, Event Loop事件循环应用。
+   - 队列 queue: 先进先出, Event Loop事件循环应用。
 
-### 18.2 基础类型 和 引用类型
-- 基础类型: Undefined, Null, Boolean, Number, String.
+3. 基础类型 和 引用类型
+   - 基础类型: Undefined, Null, Boolean, Number, String.
 
-- 引用类型: Object, Array....
+   - 引用类型: Object, Array....
 
 ![JS Data Structure](https://github.com/Dragon-Rider/PI-Summary/raw/master/imgs/js_data_structure.png "JS Data Structure")
+
+4. 不同类型存储的环境
+   - 基本类型 保存在 栈 stack 内存中
+
+   - 引用类型值 保存在 堆 heap 内存中
+
+   - 事件循环机制 是在队列queue中
+5. 内存空间管理
+当你声明一个变量的时候，就会给该变量分配一个内存空间(变量对象，使用完毕后, 释放。**自动垃圾收集机制: 就是找出那些不再继续使用的值，然后释放其占用的内存**
