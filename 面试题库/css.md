@@ -11,11 +11,13 @@
 
 ## 1. 盒模型介绍
 **标准盒模型**： 一个块的总宽度 = width+margin(左右)+padding(左右)+border(左右)
+
 在标准的盒子模型中，`width指content部分的宽度`（蓝色部分）。box-sizing: content-box 是W3C盒子模型
 ![Standard Box Model](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/css_standard_box_model.png "Standard Box Model")
 
 
 **怪异盒模型**： 一个块的总宽度 = width+margin（左右）（既 width 已经包含了 padding 和 border 值）
+
 在IE盒子模型中，`width表示content+padding+border这三个部分的宽度`。box-sizing: border-box 是IE盒子模型
 ![Alternate Box Model](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/css_alternate_box_model.png "Alternate Box Model")
 
