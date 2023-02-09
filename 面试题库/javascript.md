@@ -18,6 +18,8 @@
 - [16. 对象深拷贝方法](#16-对象深拷贝方法)
 - [17. 执行机制, 同步异步, Event Loop, 宏任务, 微任务](#17-执行机制-同步异步-event-loop-宏任务-微任务)
 - [18. JS 内存空间理解](#18-js-内存空间理解)
+- [19. 执行上下文 Execution Context 的理解](#19-执行上下文-execution-context-的理解)
+- [20. 函数声明和变量声明的区别？](#20-函数声明和变量声明的区别)
 
 @import "/css/base.less"
 <!--
@@ -512,3 +514,89 @@ async1 end
    - 事件循环机制 是在队列queue中
 5. 内存空间管理
 当你声明一个变量的时候，就会给该变量分配一个内存空间(变量对象，使用完毕后, 释放。**自动垃圾收集机制: 就是找出那些不再继续使用的值，然后释放其占用的内存**
+
+## 19. 执行上下文 Execution Context 的理解
+1. 执行上下文：每次当解释器转到不同的可执行代码的时候，就会进入一个执行上下文 EC。可以简单的理解执行上下文就是代码的运行环境或者作用域。EC 是个抽象的概念，ECMA-262 使用 EC 和 Executable Code 区分。（参考）
+
+2. 运行环境: 全局环境, 函数环境
+
+3. 执行调用栈：执行是以 栈的方式处理，叫 函数调用栈 (call stack)（参考）
+
+4. 全局环境一直在执行上下文栈低。当函数执行的时候，才入栈。return 函数上下文必须立刻出栈。
+```
+// 19-1 小闭包
+var n = 100
+function f1 () {
+  var n = 200;
+  function f2() {
+    console.log(n);
+  }
+  return f2; // return f1 会出函数调用栈
+}
+
+const final = f1 (); // final = f2 当执行的时候, 又重新入栈, 新的执行环境
+final (); // 200
+```
+
+```
+// 上下文环境考察
+var name = "window";
+
+var p = {
+  name: 'Perter',
+  getName: function () {
+    // 利用变量保存的方式保证其访问的是p对象
+    var self = this;
+    return function () {
+      return self.name;
+    }
+  }
+}
+
+var getName = p.getName();
+// 如果不用保存的方法，执行的环境是全局环境了。
+var _name = getName();
+console.log(_name); // Perter=
+
+// 上面的代码返回 Perter，如果你把 return self.name; => 改成this.name 执行返回为 window。
+// 这是因为 this 取得是当前的上下文环境，即 call stack 里面当前的环境。
+// 同时，p不是一个函数，所以一直在内存中。所以 self 的值也一直都在。
+```
+
+## 20. 函数声明和变量声明的区别？
+- **函数声明**: 会被提升到作用域的最顶部. 我的理解：声明+定义都提到顶部。
+
+- **变量声明**: 只是定义了, 执行还是按照顺序，没执行到哪儿的, 会返回undefined. 我的理解：声明提到顶部，定义还在原来的位置。注意：var 可以提升，但是 let 无法提升。
+```
+const _fn = (args) => {
+  console.log(args) // Formal parameters 形参
+
+  console.log(a)
+  // 下面有变量声明 a 和 函数声明 function a, 函数声明被提升, 且优先级大于变量声明 a
+  // 故返回值为 [Function: a]
+
+  console.log(b)
+  // b也是个 function, 但是是变量声明, 声明提升了, 但是解析是按照顺序的
+  // 故返回值为 undefined
+
+  var a = 'a_string' // 变量声明
+  function a () { console.log('aaa') } // 函数声明
+  var b = 'b_string' // 变量声明
+  var b = () => {} // 变量声明
+
+  console.log(a)
+  // 因为function a() 被提升到了作用域最上面, 下面就是a = 'a_string', 输出为 a_string
+
+  console.log(b)
+  // 正常执行顺序 b = () => {}
+}
+_fn('1');
+
+/*
+ * 1
+ * [Function: a]
+ * undefined
+ * a_string
+ * [Function: b]
+ */
+```
