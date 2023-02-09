@@ -17,6 +17,9 @@
 - [15. JS 对象转换的考察](#15-js-对象转换的考察)
 - [16. 对象深拷贝方法](#16-对象深拷贝方法)
 - [17. 执行机制, 同步异步, Event Loop, 宏任务, 微任务](#17-执行机制-同步异步-event-loop-宏任务-微任务)
+- [18. JS 内存空间理解](#18-js-内存空间理解)
+  - [18.1 heap, stack, queue](#181-heap-stack-queue)
+  - [18.2 基础类型 和 引用类型](#182-基础类型-和-引用类型)
 
 @import "/css/base.less"
 <!--
@@ -442,10 +445,6 @@ JSON.parse(JSON.stringify 的问题：
   - EventLoop：本质上是js对异步处理机制。先执行同步，再执行微任务，最后执行宏任务。有上述过程不断重复，一旦发现优先级比自己高的, 要去执行高的, 让出主线程, 等前一个优先级任务空了, 再执行后面的。叫作 事件循环机制。
 ![alt Event Loop](https://raw.githubusercontent.com/Dragon-Rider/PI-Summary/master/img/event-loop.png?token=GHSAT0AAAAAAB6GR7QZ7G4YFTP37UXB6ULAY7E2NXA "Event Loop")
 
-https://github.com/Dragon-Rider/PI-Summary/blob/master/img/event-loop.png
-https://github.com/Dragon-Rider/PI-Summary/raw/master/imgs/event-loop.png
-
-
 ```
 // EventLoop 测试题1
 setTimeout(function(){
@@ -481,3 +480,28 @@ async1 end
 定时器开始啦
 */
 ```
+
+## 18. JS 内存空间理解
+1. 变量对象 和 堆内存
+
+- 基本类型 保存在 栈stack内存中
+
+- 引用类型值 保存在 堆heap内存中
+
+- 事件循环机制 是在队列queue中
+
+- 闭包引用会 保存在 堆heap内存中
+
+### 18.1 heap, stack, queue
+- 堆 heap: 类似kv, 我们知道key, 就能获取到value。
+
+- 栈 stack: 栈空间先进后出，后进先出的特点。
+
+- 队列 queue: 先进先出, Event Loop事件循环应用。
+
+### 18.2 基础类型 和 引用类型
+- 基础类型: Undefined, Null, Boolean, Number, String.
+
+- 引用类型: Object, Array....
+
+![JS Data Structure](https://raw.githubusercontent.com/Dragon-Rider/PI-Summary/master/img/js_data_structure.png?token=GHSAT0AAAAAAB6GR7QZ7G4YFTP37UXB6ULAY7E2NXA "JS Data Structure")
