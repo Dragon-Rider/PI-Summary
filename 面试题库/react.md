@@ -8,6 +8,13 @@
 - [8.  React 为什么不能用 index 做 key](#8--react-为什么不能用-index-做-key)
 - [9.  React 为什么要在constructor 中 bind this？](#9--react-为什么要在constructor-中-bind-this)
 - [10. 你是如何理解fiber的?](#10-你是如何理解fiber的)
+- [11. setState 是同步还是异步](#11-setstate-是同步还是异步)
+- [12. Hooks 解决的问题](#12-hooks-解决的问题)
+- [13. React 有哪些性能优化的方式](#13-react-有哪些性能优化的方式)
+- [14. React Hooks 有哪些](#14-react-hooks-有哪些)
+- [15. React Hooks 实现原理](#15-react-hooks-实现原理)
+- [16. Redux 异步变更](#16-redux-异步变更)
+- [17. React 事件机制](#17-react-事件机制)
 
 ## 1. 虚拟 DOM 是什么?
 在 React 中, React 会先将代码转换成一个 JS 对象, 然后再将这个 JS 对象转换成真正的 DOM. 这个 JS 对象就是所谓的虚拟 DOM.
@@ -46,6 +53,8 @@ const VitrualDom = {
 ```
 - 状态变更时，记录新树和旧树的差异
 - 最后把差异更新到真正的dom中
+
+[link1](https://blog.csdn.net/liaoxuewu/article/details/83541914)、[link2](https://juejin.cn/post/6844903695910436872)
 
 ## 2. 虚拟 DOM 优劣如何?
 优点:
@@ -239,3 +248,53 @@ Fiber：**一种将 recocilation （递归 diff），拆分成无数个小任务
 
 - **Commit(渲染器)**：将 Reconciler 中打好标签的节点渲染到视图上
 
+![React Fiber Structure](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/react_fiber.jpg "React Fiber Structure")
+
+[link1](https://juejin.cn/post/7075701341997236261)、[link2](https://mp.weixin.qq.com/s?__biz=Mzg3OTYzMDkzMg==&mid=2247488140&idx=1&sn=8740d01bd4ebfcd676ec0d40936345b6&chksm=cf00ddb7f87754a1b124890c645b8f73c9dfcdd4b68d7983900815bfa47159e856e1cfd1c539&scene=178&cur_album_id=2235430201809928196#rd)
+
+## 11. setState 是同步还是异步
+大部分情况是`异步`的，因为 react 需要批量处理 state 的变更，也叫 `patch`；
+
+少部分情况是`同步`的，比如在 `setTimeout` 里，或者在操作自定义 dom 里；
+
+[link1](https://juejin.cn/post/7016593221815910408#heading-70)、[link2](https://juejin.cn/post/7108362046369955847)
+
+## 12. Hooks 解决的问题
+- 让函数组件也能做类组件的事，有自己的状态，可以处理一些副作用，能获取 ref ，也能做数据缓存。
+
+- 解决`逻辑复用难`的问题。
+
+- 放弃面向对象编程，拥抱`函数式编程`。
+
+- 给新手解决 `this 指向`错误的问题。
+
+- `逻辑收敛`：分割在不同声明周期中的逻辑使得代码难以理解和维护
+
+## 13. React 有哪些性能优化的方式
+- `shouldComponentUpdate`：选择性子树渲染。开发人员可以重写 shouldComponentUpdate 提高 diff 的性能。
+
+- 使用发布订阅模式来避免中间组件不必要的渲染。Redux，避免 Props 的层层传递。
+
+- 小程序改造 Redux，在 Redux 里做 diff，成功在驱动 Redux 广播。
+
+- 列表加 `Key`
+
+- `React.lazy` 组件懒加载
+[link1](https://juejin.cn/post/7135753542119211039)
+
+## 14. React Hooks 有哪些
+- useState
+- useEffect
+- useContext
+- useRef
+- uesReducer
+- useMemo
+
+## 15. React Hooks 实现原理
+useState：闭包 + 数组。因为是数组，所以 hooks 要按顺序，不能放在条件判断里面。
+
+## 16. Redux 异步变更
+[link](https://juejin.cn/post/6844903504427892750)
+
+## 17. React 事件机制
+[link](https://juejin.cn/post/7164583106920316941)
