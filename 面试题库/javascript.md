@@ -79,7 +79,7 @@
 闭包的作用：1. 在内存中`维持一个变量`；2. 通过`保护变量`的安全实现JS私有属性和私有方法。
 
 闭包的用途：之所以可能通过这种方式在 JavaScript 种实现公有，私有，特权变量正是因为闭包，闭包是指在 JavaScript中，内部函数总是可以访问其所在的外部函数中声明的参数和变量，即使在其外部函数被返回（寿命终结）了之后。
-```
+```javascript
 // 闭包的考题，也可以是块级作用域的考题；
 var result = [];
 
@@ -143,7 +143,7 @@ result[2]();
 ```
 
 引申手写一个闭包：
-```
+```javascript
 // 闭包使用的例子：
 var foo = function() {
     var secret = 'secret';
@@ -193,7 +193,7 @@ foo.get_secret (); // 得到 'a new secret'
 `常考题`
 
 ## 7.  EventLoop 和 作用域 考察
-```
+```javascript
 // 结果：1s 后立即输出 5 个 5；因为 for 循环了五次，所以 setTimeout 被 5 次添加到时间循环中，等待一秒后全部执行。
 for (var i = 0; i < 5; i++) {
   setTimeout(function() {
@@ -219,7 +219,7 @@ setInterval 缺点：
 
 ## 9. 解释下 JavaScript 中 Call 和 Apply 的区别
 JavaScript中的每一个Function对象都有一个apply()方法和一个call()方法，它们的语法分别为：
-```
+```javascript
 /*apply()方法*/
 function.apply(thisObj[, argArray])
 
@@ -230,7 +230,7 @@ function.call(thisObj[, arg1[, arg2[, [,...argN]]]]);
 
 - apply：同上，但参数为数组或者 arguments 对象。例如：B.call(A, args1, args2);即A对象调用B对象的方法。
 
-```
+```javascript
 // 实现继承
 function Animal(name){
   this.name = name;
@@ -293,7 +293,7 @@ cat.showName();
 
   缺点：这种方法有限制就是当两个对比的对象中key的顺序不是完全相同时会比较出错
 
-```
+```javascript
 let obj1 = {a:1, b:2};
 let obj2 = {a:1, b:2};
 
@@ -305,7 +305,7 @@ console.log(JSON.stringify(obj1) === JSON.stringify(obj2));
   优点：相对方法一进行了优化，可以应对不同顺序的Object进行比较，不用担心顺序不同而对比出错
 
   缺点：从方法中可以看到只能获取到第一层的key组成的数组，当对象是复合对象时无法进行多层对象的比较
-```
+```javascript
 function isObjectValueEqual(a, b) {
   var aProps = Object.getOwnPropertyNames(a);
   var bProps = Object.getOwnPropertyNames(b);
@@ -323,7 +323,7 @@ function isObjectValueEqual(a, b) {
 ```
 
 - 方法三：递归的方法判断（参考：JS判断两个对象内容是否相等）
-```
+```javascript
 function isObjectValueEqual(a, b) {
   var aProps = Object.getOwnPropertyNames(a);
   var bProps = Object.getOwnPropertyNames(b);
@@ -357,7 +357,7 @@ console.log(isObjectValueEqual(a,b));
 
 ## 14. Array.prototype.reduce() 的考察
 要求：将 string('a-b-c-d') 分割为数组[a, b, c, d]，用reduce拼接到newStr中，得到的结果 0abcd；
-```
+```javascript
 let string = 'a-b-c-d'
 let arr = string.split('-')//[a,b,c,d]
 let newStr = '0'
@@ -373,7 +373,7 @@ console.log(value) // 0abcd
 
 ## 15. JS 对象转换的考察
 要求：写一个方法实现，任意对象作为入参传入，只能返回对象上特定的几个值(a, b, c)，尽可能的简单，高效。
-```
+```javascript
 // 举例
 // 入参：{a:1, b:2, c:3}, 函数返回值: {a:1, b:2, c:3}
 // 入参：{a:1, b:2, d:4}, 函数返回值: {a:1, b:2}
@@ -409,7 +409,7 @@ function transform(obj, keyList) {
 ```
 
 ## 16. 对象深拷贝方法
-```
+```javascript
 JSON.parse(JSON.stringify(obj))
 ```
 JSON.parse(JSON.stringify 的问题：
@@ -445,7 +445,7 @@ JSON.parse(JSON.stringify 的问题：
   - EventLoop：本质上是js对异步处理机制。先执行同步，再执行微任务，最后执行宏任务。有上述过程不断重复，一旦发现优先级比自己高的, 要去执行高的, 让出主线程, 等前一个优先级任务空了, 再执行后面的。叫作 事件循环机制。
 ![alt Event Loop](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/event-loop.png "Event Loop")
 
-```
+```javascript
 // EventLoop 测试题1
 setTimeout(function(){
     console.log('定时器开始啦')
@@ -523,7 +523,7 @@ async1 end
 3. 执行调用栈：**执行是以 栈的方式处理，叫 函数调用栈 (call stack)**[参考](https://zhuanlan.zhihu.com/p/139993414)
 
 4. 全局环境一直在执行上下文栈低。当函数执行的时候，才入栈。return 函数上下文必须立刻出栈。
-```
+```javascript
 // 19-1 小闭包
 var n = 100
 function f1 () {
@@ -538,7 +538,7 @@ const final = f1 (); // final = f2 当执行的时候, 又重新入栈, 新的�
 final (); // 200
 ```
 
-```
+```javascript
 // 上下文环境考察
 var name = "window";
 
@@ -567,7 +567,7 @@ console.log(_name); // Perter=
 - **函数声明**: 会被提升到作用域的最顶部. 我的理解：声明+定义都提到顶部。
 
 - **变量声明**: 只是定义了, 执行还是按照顺序，没执行到哪儿的, 会返回undefined. 我的理解：声明提到顶部，定义还在原来的位置。注意：var 可以提升，但是 let 无法提升。
-```
+```javascript
 // 解释代码块
 const _fn = (args) => {
   console.log(args) // Formal parameters 形参
@@ -602,7 +602,7 @@ _fn('1');
  */
 ```
 
-```
+```javascript
 // 题目1：
 var a = 1;
 f();

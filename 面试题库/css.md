@@ -22,7 +22,7 @@
 ![Alternate Box Model](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/css_alternate_box_model.png "Alternate Box Model")
 
 ## 2. CSS垂直居中的实现，高度为宽度的50%的方法实现
-```
+```css
 方法1：
     .center {
         position: absolute;
@@ -80,7 +80,7 @@
 [link](https://www.cnblogs.com/echolun/p/11353627.html)
 
 ## 3. 弹性布局
-问题1：类似美团外卖菜单页，左边菜品种类固定 50 px，右边菜单自适应，如何实现。(link)[https://codesandbox.io/s/bfcshi-xian-zi-gua-ying-uzos3]
+问题1：类似美团外卖菜单页，左边菜品种类固定 50 px，右边菜单自适应，如何实现。[link](https://codesandbox.io/s/bfcshi-xian-zi-gua-ying-uzos3)
 ```
 问题：
 .parent {
