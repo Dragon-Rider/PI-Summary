@@ -1,0 +1,89 @@
+- [1. localStorage ， sessionStorage，Cookie 的区别？](#1-localstorage--sessionstoragecookie-的区别)
+- [2. 微前端是个啥？](#2-微前端是个啥)
+- [3. 浏览器重绘与重排的区别？](#3-浏览器重绘与重排的区别)
+  - [3.1 如何触发重排和重绘？](#31-如何触发重排和重绘)
+  - [3.2 如何避免重绘或者重排？](#32-如何避免重绘或者重排)
+- [4. 浏览器内核](#4-浏览器内核)
+- [5. Promise的then的第二个参数和catch的区别](#5-promise的then的第二个参数和catch的区别)
+- [6. 进程和线程的区别？](#6-进程和线程的区别)
+- [7. Vite 和 Webpack 比较](#7-vite-和-webpack-比较)
+
+## 1. localStorage ， sessionStorage，Cookie 的区别？
+- localStorage - 没有时间限制的数据存储。`5MB` 或更大。localStorage 在所有同源窗口中都是共享的；
+
+- sessionStorage - 针对一个 session 的数据存储。sessionStorage不在不同的浏览器窗口中共享，即使是同一个页面。5M或更大。
+
+- cookie `4kb` 大小。 会在请求里带着。cookie也是在所有同源窗口中都是共享的。
+
+三者都是都是域名隔离的
+
+[link](https://blog.csdn.net/jiangnanqbey/article/details/81709322)
+
+## 2. 微前端是个啥？
+将前端应用分解成一些更小、更简单的能够独立开发，测试、部署的小块，而在用户看来仍然是内聚的单个产品。 微前端的三个要素，即：**`独立运行`**、**`独立开发`**（与技术栈无关，应用之间不应该有任何直接或间接的技术栈、依赖、以及实现上的耦合）、**`独立部署`**
+
+如何将一个**巨石**的管理系统改造拆分（各个中心的模块下面还有几十个菜单）
+
+![micro FE](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/FE_base_micro_front_end.jpg "micro FE")
+
+[link](https://juejin.cn/post/6966189658132709390)
+
+## 3. 浏览器重绘与重排的区别？
+- 重绘(`Repaint`)：元素外观变了，但是布局没变；触发重绘；`重绘不一定会重排`
+
+- 重排/回流（`Reflow`）：元素布局变了，触发重排。`重排一定会导致重绘`
+
+[link](https://blog.csdn.net/jiangnanqbey/article/details/81709322)
+
+### 3.1 如何触发重排和重绘？
+- **重排**
+  1. 查询属性(offsetTop)会强制发生重排
+
+  2. 改变狂傲等属性
+
+  3. 添加、删除、更新DOM节点
+
+  4. 通过display: none 触发重绘和重排
+
+- **重绘**
+  1. 通过visibility: hidden 只会触发重绘
+  2. 改变颜色等属性
+
+### 3.2 如何避免重绘或者重排？
+- 为动画的 HTML 元件使用 `position：absolute` 或 `fixed` 元素，因为可以`脱离文档流`，，那么修改他们的 CSS 是不会 reflow 的。
+
+- 集中改变样式，不要一条一条地修改 DOM 的样式。
+
+- `动画开始GPU加速`，可以让transform、opacity、filters这些动画不会引起回流和重绘。
+
+- CSS的最终表现分为以下四步：Recalculate Style（计算样式） -> Layout（重排） -> Paint Setup and Paint（重绘） -> Composite Layers（组合层）。由于 `transform 是位于 Composite Layers 层`，所以相对而言使用transform实现的动画效果肯定比left这些更加流畅。
+
+[link1](https://juejin.cn/post/6844903734951018504#heading-11)、[link2](https://www.ucloud.cn/yun/86898.html)
+
+## 4. 浏览器内核
+- GUI渲染线程：当界面需要重绘（Repaint)或由于某种操作引发回流（reflow)时，该线程就会执行。`GUI渲染线程与JS引擎线程是互斥的`，因为 JS 下次线程可能操作 dom；
+
+- JS引擎线程：也称JS内核，负责处理JS脚本程序。例如V8引擎
+
+## 5. Promise的then的第二个参数和catch的区别
+- reject是用来抛出异常的，catch是用来处理异常的；
+- 主要区别就是，如果在then的第一个函数里抛出了异常，后面的catch能捕获到，而then的第二个函数捕获不到
+[link](https://juejin.cn/post/7075894989200293919)
+
+## 6. 进程和线程的区别？
+- 进程是`资源分配`的最小单位，它有自己独立的内存空间，每启动一个进程，系统会为它分配地址空间，简历数据表来维护代码段，堆栈段和数据段。并且不同进程之间通信是需要以通信的方式（IPC）进行。
+
+- 线程是`程序执行`的最小单位，线程是共享同一个进程中的数据的，所以线程之间通信更方便。
+
+- 多进程程序更稳定。因为多线程程序只要有一个线程死掉，整个进程也会崩溃。但是因为进程之间分配的地址空间不同，一个进程死亡不会对其他的进程造成影响。
+
+[link](https://juejin.cn/post/6850418112186859527)
+
+## 7. Vite 和 Webpack 比较
+- **Vite 冷启动快**：因为 `Webpack` 依赖 `bundle 机制`，核心会要构建和分解 `module graph`（依赖图），而这又涉及了大量的文件 IO、文件 transfrom、文件 parse 操作；所以慢；但是 `Vite` 是 `no-bundle` 机制的，源文件之间的依赖关系完全通过浏览器对 `ESM` 规范的支持来解析。所以它可以飞快，但是代价是兼容性没有 Webpack 全面；
+
+- **Vite HMR（Hot Module Replacement 热更新）快**：同样原因，Webpack 在代码变更后，依然是 bundle 机制，会重新打包这个文件，执行resolve、 load、 transfrom、parse 操作，其他代码是有缓存。 Vite 则是 no-bundle 机制，所以代码更新后，vite 只是通知浏览器重新 reload；
+
+- **Vite 加载慢**：和 Webpack 对比，Vite 把需要在 dev server 启动过程中完成的工作（运行期间对源文件做 resolve、load、transform、parse 操作），转移到了 dev server 响应浏览器请求的过程中，不可避免的导致首屏性能下降。不过首屏性能差只发生在 dev server 启动以后第一次加载页面时发生。之后再 reload 页面时，首屏性能会好很多。原因是 dev server 会将之前已经完成转换的内容缓存起来。
+
+[link](https://juejin.cn/post/7129041114174062628#heading-2)
