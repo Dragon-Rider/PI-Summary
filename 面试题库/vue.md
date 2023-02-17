@@ -9,6 +9,10 @@
 - [2. 原理相关](#2-原理相关)
   - [2.1 vue中响应式数据原理是什么？](#21-vue中响应式数据原理是什么)
   - [2.2 什么是MVVM？](#22-什么是mvvm)
+  - [2.3 谈谈React和Vue 的区别？](#23-谈谈react和vue-的区别)
+  - [2.4 什么是虚拟 dom](#24-什么是虚拟-dom)
+- [3. 全家桶](#3-全家桶)
+  - [3.1 Vuex Mutation 的解释](#31-vuex-mutation-的解释)
 
 ## 1. 基础知识
 ### 1.1 Vue 的生命周期
@@ -80,3 +84,65 @@
 - **可以顺带考察一下es6的Proxy 和Reflect使用**
 
 ### 2.2 什么是MVVM？
+`视图模型双向绑定`，是Model-View-ViewModel的缩写。所谓的MVVM其实就是Model、View 和ViewModel，**Vue是典型的 MVVM 设计模式**：
+
+- Model：模型层（`数据层`），主要用于保存一些数据
+
+- View： `视图层`，主要用于将后端数据借助各种元素呈现给用户，同时也可提供用户操作的入口
+
+- ViewModel：视图模型层：该层也是mvvm中的核心层，主要用于作为Model个View两个层的`数据连接层，负责两个层之间的数据传递`。该层主要包含两大功能点：
+
+    - DOM监听（DOM Listener） 用于监听dom元素的一些事件，如果dom元素发生变化在需要的时候会改变对应的data
+
+    - 数据绑定（Data bindings）用于将model的改变反应在view上及时呈现给用户
+
+MVVM（即 Vue 2.0）的实现分为三步：`数据劫持（object.defineProperty）、模板编译和双向绑定(发布者，订阅者模式)`。
+
+答2：`ViewModel`是View和Model层的`桥梁`，数据会绑定到viewModel层并自动将数据渲染到页面中，视图变化的时候会通知 ViewModel 层更新数据。以前是操作DOM结构更新视图，现在是`数据驱动视图`。
+
+参考：[link1](https://juejin.cn/post/7101516105289564196)、[link2](https://juejin.cn/post/7016593221815910408#heading-85)
+
+### 2.3 谈谈React和Vue 的区别？
+相同：其实react和vue大体上是相同的，比如都使用`虚拟DOM`高效的更新视图，都提倡`组件化`，都实现了`数据驱动视图`，都使用`diff算法`，也都对diff算法进行了优化，都有router库实现url到组件的映射，都有状态管理等等
+
+不同：
+
+- 组件化差异：
+
+    - React 推荐的是 JSX+inline css 的写法，就是把 html，js，css 都写入 js 中，倡导 all in js。
+
+    - vue 推荐 template 的写法，html，js，css 在一个文件中但彼此隔离；
+
+- diff算法差异：vue 因为是双链表结构所以可以采用`双端对比`。React 没有在 fiber 上设置反向链表，所以没法用双端对比。因此 ，同样情况下 Vue 可以减少移动节点次数，减少不必要的性能损耗，更加的优雅。
+
+- 数据流差异：Vue 是`双向数据绑定`；React 是 `单向数据流`
+
+![Vue Data Stream](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/vue_data_stream.jpg "Vue Data Stream")
+
+- HOC和mixin：vue 2.0 和 React 16.8 之前的，React 用 HOC ，Vue 用 mixin 实现逻辑复用；现在都用 hooks 了（或者 composition api）; React 不用 mixin 是因为 mixin 侵入性太强了；
+
+- 组件通行
+
+    - vue：父子组件用 事件/回调 和 props，倾向于用 `事件`，全局用 provide/inject
+
+    - react：父子组件用 `Callback` 和 props，通过 context 进行跨层级的通信
+
+![Vue Components Communication](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/vue_components_communication.jpg "Vue Components Communication")
+
+React适合构建大型应用，鲁棒性更好；Vue 适合构建短平快的项目，灵活性更好，更简单好上手；
+
+参考：[link1](https://juejin.cn/post/7144648542472044558#heading-16)、[link2](https://juejin.cn/post/7116141318853623839#heading-21)、[link3](https://juejin.cn/post/6844903668446134286)
+
+### 2.4 什么是虚拟 dom
+虚拟 DOM（Virtual DOM）本质上是JS 和 DOM 之间的一个映射缓存，它在形态上表现为一个能够描述 DOM 结构及其属性信息的 JS 对象。它主要存储在内存中。主要来说：
+
+- 虚拟dom是一个js对象，存储在内存之中。
+
+- 虚拟dom能够描述真实dom（存在一个对应关系）
+
+- 当数据变化的时候，生成新的DOM，对比新旧虚拟DOM的差异，将差异更新到真实DOM上
+
+[link](https://juejin.cn/post/7144648542472044558)
+
+## 3. 全家桶
+### 3.1 Vuex Mutation 的解释
