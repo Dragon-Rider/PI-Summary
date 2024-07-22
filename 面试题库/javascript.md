@@ -20,6 +20,7 @@
 - [18. JS 内存空间理解](#18-js-内存空间理解)
 - [19. 执行上下文 Execution Context 的理解](#19-执行上下文-execution-context-的理解)
 - [20. 函数声明和变量声明的区别？](#20-函数声明和变量声明的区别)
+- [21. forEach，for...of..., for...in... 区别](#21-foreachforof-forin-区别)
 
 @import "/css/base.less"
 <!--
@@ -636,3 +637,13 @@ function f() {
 // 输出：Uncaught ReferenceError: Cannot access 'a' before initialization
 // 原因：let 无法做声明提升，同时会生成 TDZ。只有在块级作用域里有 let 会形成 TDZ，限制声明提升，同时不准提前使用变量。
 ```
+
+## 21. forEach，for...of..., for...in... 区别
+forEach
+   - forEach方法不会改变原数组，也没有返回值；
+   - 用 continue 一致；
+   - forEach方法无法遍历对象，仅适用于数组的遍历。
+for...of...
+   - 遍历对象
+for...in...
+   - 遍历数组、对象
