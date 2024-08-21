@@ -7,6 +7,7 @@
 - [5. px，rem，vw 区别](#5-pxremvw-区别)
 - [6. 解释：BEM, scoped css, css modules 与 css-in-js](#6-解释bem-scoped-css-css-modules-与-css-in-js)
 - [7. 页面上弹窗的“滚动穿透”如何解决](#7-页面上弹窗的滚动穿透如何解决)
+- [8. 重绘和重排](#8-重绘和重排)
 
 
 ## 1. 盒模型介绍
@@ -14,6 +15,7 @@
 
 在标准的盒子模型中，`width指content部分的宽度`（蓝色部分）。box-sizing: content-box 是W3C盒子模型
 ![Standard Box Model](https://github.com/Dragon-Rider/eragon.github.io/raw/main/imgs/PI-Summary/css_standard_box_model.png "Standard Box Model")
+浏览器默认是 content-box，标准盒模型；
 
 
 **怪异盒模型**： 一个块的总宽度 = width+margin（左右）（既 width 已经包含了 padding 和 border 值）
@@ -191,3 +193,6 @@ BFC 即 Block Formatting Contexts (块级格式化上下文)，它属于上述�
   - better-scroll 或者 iscroll
 
 相关链接：[link1](https://developers.weixin.qq.com/community/develop/article/doc/000886e3d182a8c8d00ca216e5fc13)、[link2](https://developers.weixin.qq.com/community/develop/article/doc/00046c19b2cff00af48a60bd05bc13)、[link3](https://juejin.cn/post/6844903766982918152)
+
+## 8. 重绘和重排
+https://juejin.cn/post/7398736473091211301#heading-3
